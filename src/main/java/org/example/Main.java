@@ -1,33 +1,34 @@
 package org.example;
-
+import java.util.Locale;
 import org.example.enums.Plan;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Locale.setDefault(Locale.US);
+        executeTasks();
     }
-    public static void runOperations() {
+    public  static  void executeTasks(){
+        Healthplan healthplan1 = new Healthplan(1, "Basic Health", Plan.BASIC);
+        Healthplan healthplan2 = new Healthplan(2, "Premium Health", Plan.PREMIUM);
 
-        Healthplan healthplan1 = new Healthplan(1, "Sigorta A", Plan.BASIC);
+        String[] healthsplansArray = new String[3];
+        Employee employee = new Employee(101,"John Doe","john.doe@example.com","password123",healthsplansArray);
 
-        System.out.println(healthplan1);
+        employee.addHealthPlan(0, healthplan1.getName());
+        employee.addHealthPlan(1, healthplan2.getName());
+        employee.addHealthPlan(1, "Enterprise Health");
+        employee.addHealthPlan(5, "Invalid Index Health");
 
+        String[] developerNamesArray = new String[3];
+        Company company = new Company(1, "TechCorp", 500000, developerNamesArray);
+        company.addEmployee(0, "Alice");
+        company.addEmployee(1, "Bob");
+        company.addEmployee(1, "Charlie");
+        company.addEmployee(4, "Invalid Index Employee");
 
-
-        String[] employeeHealthPlans = {"Sigorta A"};
-        Employee employee1 = new Employee(1, "John Doe", "john.doe@test.com", "password123", employeeHealthPlans);
-        System.out.println(employee1);
-
-
-        String[] companyEmployees = {"John Doe"};
-        Company company = new Company(1, "TechCorp", 5000, companyEmployees);
-        System.out.println(company);
-
-
-        try {
-            company.setGiro(-1000); // Bu işlem hata verecek çünkü giro negatif olamaz
-        } catch (IllegalArgumentException e) {
-            System.out.println("Hata: " + e.getMessage());
-        }
+        System.out.println(healthplan1.toString());
+        System.out.println(healthplan2.toString());
+        System.out.println(employee.toString());
+        System.out.println(company.toString());
     }
 }
